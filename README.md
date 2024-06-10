@@ -1,5 +1,6 @@
+<br/>
 <p align="center">
-      <img src="/meta/logo.svg" height="128">
+      <img src="/meta/logo.svg" height="156">
 </p>
 <br/>
 A "small" large language model for general purposes. Intended for educational purposes and not for production use.
