@@ -2,7 +2,7 @@
 
 from torch import nn
 
-from src.train.config import StrataConfig
+from src.arch.config import StrataConfig
 
 
 class StrataFeedForwardNetwork(nn.Module):
@@ -17,3 +17,9 @@ class StrataFeedForwardNetwork(nn.Module):
         self.linear_projection_1 = nn.Linear(config.num_embedding_dim, config.num_embedding_dim * 4)
         self.gelu = nn.GELU(approximate="tanh")
         self.linear_projection_2 = nn.Linear(config.num_embedding_dim * 4, config.num_embedding_dim)
+
+    def forward(self: "StrataFeedForwardNetwork", x: nn.Tensor) -> nn.Tensor:
+        """Forward pass of the StrataFeedForwardNetwork class."""
+        x = self.linear_projection_1(x)
+        x = self.gelu(x)
+        return self.linear_projection_2(x)

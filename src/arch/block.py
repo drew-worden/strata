@@ -2,7 +2,9 @@
 
 from torch import Tensor, nn
 
-from src.train.config import StrataConfig
+from src.arch.causal_attention import StrataCausalAttention
+from src.arch.config import StrataConfig
+from src.arch.feed_forward_network import StrataFeedForwardNetwork
 
 
 class StrataBlock(nn.Module):
@@ -12,7 +14,7 @@ class StrataBlock(nn.Module):
         """Initialize the StrataBlock class."""
         super().__init__()
         self.layer_norm_1 = nn.LayerNorm(config.num_embedding_dim)
-        self.attention = StrataCasualAttention(config)
+        self.attention = StrataCausalAttention(config)
         self.layer_norm_2 = nn.LayerNorm(config.num_embedding_dim)
         self.feed_forward_network = StrataFeedForwardNetwork(config)
 

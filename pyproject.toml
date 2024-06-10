@@ -37,7 +37,7 @@ line-length = 100
 # Project linter settings
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D213", "D211", "COM812", "ISC001", "D203"]
+ignore = ["D213", "D211", "COM812", "ISC001", "D203", "TRY003"]
 
 # Project formatter settings
 [tool.ruff.format]

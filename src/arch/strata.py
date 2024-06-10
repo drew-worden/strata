@@ -2,8 +2,8 @@
 
 from torch import nn
 
-from src.train.block import StrataBlock
-from src.train.config import StrataConfig
+from src.arch.block import StrataBlock
+from src.arch.config import StrataConfig
 
 
 class Strata:
