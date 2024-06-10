@@ -7,11 +7,40 @@ license = "MIT"
 readme = "README.md"
 package-mode = false
 
+# Project tasks
+[tool.poe.tasks]
+test = 'pytest'
+lint = 'ruff check'
+format = "ruff format ./"
+
 # Project dependencies
 [tool.poetry.dependencies]
 python = "^3.12"
+
+# Project development dependencies
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.8"
+pytest = "^8.2.2"
+poethepoet = "^0.26.1"
+pre-commit = "^3.7.1"
 
 # Build settings
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# Project general settings
+[tool.ruff]
+line-length = 100
+
+# Project linter settings
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D213", "D211", "COM812", "ISC001", "D203"]
+
+# Project formatter settings
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = 40
