@@ -1,8 +1,7 @@
 <p align="center">
-      <img src="logo.png" height="256">
-      <h1 align="center">Strata</h1>
+      <img src="/meta/logo.svg" height="128">
 </p>
-
+<br/>
 A "small" large language model for general purposes. Intended for educational purposes and not for production use.
 
 # Features
