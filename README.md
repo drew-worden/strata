@@ -1,5 +1,5 @@
 <p align="center">
-      <img src="logo.png" height="128">
+      <img src="logo.png" height="256">
       <h1 align="center">Strata</h1>
 </p>
 
