@@ -1,0 +1,17 @@
+# Project metadata
+[tool.poetry]
+name = "strata"
+description = "A \"small\" large language model for general purposes."
+authors = ["drew-worden <drew.p.worden@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+package-mode = false
+
+# Project dependencies
+[tool.poetry.dependencies]
+python = "^3.12"
+
+# Build settings
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
