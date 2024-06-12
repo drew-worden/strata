@@ -7,6 +7,13 @@ import torch
 
 from src.arch.config import StrataConfig
 from src.arch.strata import Strata
+from src.utilities import StrataUtilities
+
+# Get utils
+utils = StrataUtilities()
+
+# Get the best device available
+device = utils.get_best_device()
 
 # Define the number of return sequences and the maximum length.
 num_return_sequences = 5
@@ -14,19 +21,24 @@ max_length = 30
 
 # Create a Strata model.
 config = StrataConfig()
+
 model = Strata(config)
 model.eval()
+model.to(device)
+
 
 # Create a tokenizer and convert the input text to tokens.
 encoding = tiktoken.get_encoding("gpt2")
 tokens = encoding.encode("Hello, I'm a language model,")
 tokens = torch.tensor(tokens, dtype=torch.long)
 tokens = tokens.unsqueeze(0).repeat(num_return_sequences, 1)
-x = tokens
+
+x = tokens.to(device)
 
 # Generate text using the Strata model.
 torch.manual_seed(42)
 
+utils.start_timer("generation")
 while x.size(1) < max_length:
     with torch.no_grad():
         logits = model(x)
@@ -42,3 +54,5 @@ for i in range(num_return_sequences):
     tokens = x[i, :max_length].tolist()
     decoded_text = encoding.decode(tokens)
     sys.stderr.write(f">{decoded_text}\n")
+
+utils.end_timer("generation")
