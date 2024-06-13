@@ -1,13 +1,15 @@
 """Test the Strata model by generating text using a completion prompt."""
 
-import sys
-
 import tiktoken
 import torch
 
 from src.arch.config import StrataConfig
 from src.arch.strata import Strata
+from src.logger import get_relative_path, setup_logger
 from src.utilities import StrataUtilities
+
+# Setup logger using filename
+logger = setup_logger(get_relative_path(__file__), "logs/test.log")
 
 # Get utils
 utils = StrataUtilities()
@@ -53,6 +55,6 @@ while x.size(1) < max_length:
 for i in range(num_return_sequences):
     tokens = x[i, :max_length].tolist()
     decoded_text = encoding.decode(tokens)
-    sys.stderr.write(f">{decoded_text}\n")
+    logger.info(f">{decoded_text}")
 
 utils.end_timer("generation")
