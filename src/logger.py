@@ -7,20 +7,28 @@ import os
 import sys
 from logging import Logger
 from pathlib import Path
+from typing import Literal
 
 
-def setup_logger(name: str, class_file: str, level: type[int | str] = logging.INFO) -> Logger:
+def setup_logger(identifier: str, type=Literal["class"] | Literal["script"]) -> Logger:
     """Define logger with the given name, file, and level."""
     if not Path("logs").exists():
         Path("logs").mkdir()
 
     # Create a logger
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
+    logger = logging.getLogger(identifier)
+    logger.setLevel(logging.INFO)
 
     # Create handlers
     console_handler = logging.StreamHandler(sys.stdout)
-    file_handler = logging.FileHandler(class_file, encoding="utf-8")
+
+    if type == "class":
+        file_path = f"logs/{identifier}.log"
+    elif type == "script":
+        file_name = identifier.split(".")[-2].split(os.sep)[-1]
+        file_path = f"logs/{file_name}.log"
+
+    file_handler = logging.FileHandler(file_path, encoding="utf-8")
     global_handler = logging.FileHandler("logs/global.log", encoding="utf-8")
 
     # Create formatters
@@ -44,11 +52,3 @@ def get_relative_path(full_path: str) -> str:
     normalized_path = os.path.normpath(full_path)
     position = normalized_path.find(os.sep + "strata" + os.sep)
     return normalized_path[position + 1 :] if position != -1 else normalized_path
-
-
-class StrataLogger:
-    """Logger class for logging."""
-
-    def __init__(self: StrataLogger, class_name: str) -> None:
-        """Initialize the Logger class."""
-        self.logger = setup_logger(f"{class_name}.class", f"logs/{class_name}.log")

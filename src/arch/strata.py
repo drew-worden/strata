@@ -4,7 +4,9 @@ from torch import Tensor, arange, long, nn
 
 from src.arch.block import StrataBlock
 from src.arch.config import StrataConfig
+from src.logger import setup_logger
 
+logger = setup_logger("Strata", type="class")
 
 class Strata(nn.Module):
     """Strata model definition."""

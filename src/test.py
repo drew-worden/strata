@@ -9,7 +9,7 @@ from src.logger import get_relative_path, setup_logger
 from src.utilities import StrataUtilities
 
 # Setup logger using filename
-logger = setup_logger(get_relative_path(__file__), "logs/test.log")
+logger = setup_logger(get_relative_path(__file__), type="script")
 
 # Get utils
 utils = StrataUtilities()

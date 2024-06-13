@@ -5,15 +5,15 @@ from typing import Literal
 
 import torch
 
-from src.logger import StrataLogger
+from src.logger import setup_logger
 
+logger = setup_logger("StrataUtilities", type="class")
 
-class StrataUtilities(StrataLogger):
+class StrataUtilities():
     """Utility functions for the Strata project."""
 
     def __init__(self: "StrataUtilities") -> None:
         """Initialize the StrataUtilities class."""
-        super().__init__(self.__class__.__name__)
         self.timers = {}
 
     def get_best_device(self: "StrataUtilities") -> Literal["cpu", "cuda", "mps"]:
@@ -23,7 +23,7 @@ class StrataUtilities(StrataLogger):
             device = "cuda"
         elif torch.backends.mps.is_available():
             device = "mps"
-        self.logger.info(f"Using device: {device.upper()}")
+        logger.info(f"Using device: {device.upper()}")
         return device
 
     def start_timer(self: "StrataUtilities", timer_id: str) -> None:
@@ -39,5 +39,5 @@ class StrataUtilities(StrataLogger):
             error_message = f"Timer with ID {timer_id} does not exist."
             raise ValueError(error_message)
         elapsed_time = time.time() - self.timers[timer_id]
-        self.logger.info(f"Elapsed time for {timer_id}: {elapsed_time}s")
+        logger.info(f"Elapsed time for {timer_id}: {elapsed_time}s")
         del self.timers[timer_id]

@@ -9,6 +9,6 @@ class StrataConfig:
 
     block_size: int = 1024  # max sequence length
     vocabulary_size: int = 50257  # number of unique tokens
-    num_layers: int = 12  # number of layers in the model
-    num_head: int = 12  # number of heads in the model
+    num_layers: int = 24  # number of layers in the model
+    num_head: int = 24  # number of heads in the model
     num_embedding_dim: int = 768  # embedding dimension
