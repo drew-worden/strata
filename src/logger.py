@@ -1,16 +1,18 @@
 """Logger module for logging messages to the console and to a file."""
 
+from __future__ import annotations
+
 import logging
 import os
 import sys
-from logging import Logger, _Level
+from logging import Logger
 from pathlib import Path
 
 
-def setup_logger(name: str, class_file: str, level: _Level = logging.INFO) -> Logger:
+def setup_logger(name: str, class_file: str, level: type[int | str] = logging.INFO) -> Logger:
     """Define logger with the given name, file, and level."""
-    if not Path.exists("logs"):
-        Path.mkdir("logs")
+    if not Path("logs").exists():
+        Path("logs").mkdir()
 
     # Create a logger
     logger = logging.getLogger(name)
@@ -47,6 +49,6 @@ def get_relative_path(full_path: str) -> str:
 class StrataLogger:
     """Logger class for logging."""
 
-    def __init__(self: "StrataLogger", class_name: str) -> None:
+    def __init__(self: StrataLogger, class_name: str) -> None:
         """Initialize the Logger class."""
         self.logger = setup_logger(f"{class_name}.class", f"logs/{class_name}.log")
