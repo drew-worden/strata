@@ -1,15 +1,18 @@
 """Test the Strata model by generating text using a completion prompt."""
 
+import sys
+
 import tiktoken
 import torch
 
 from src.arch.config import StrataConfig
 from src.arch.strata import Strata
+from src.data_loader import StrataDataLoader
 from src.logger import get_relative_path, setup_logger
 from src.utilities import StrataUtilities
 
 # Setup logger using filename
-logger = setup_logger(get_relative_path(__file__), type="script")
+logger = setup_logger(get_relative_path(__file__), logger_type="script")
 
 # Get utils
 utils = StrataUtilities()
@@ -17,17 +20,35 @@ utils = StrataUtilities()
 # Get the best device available
 device = utils.get_best_device()
 
+torch.set_float32_matmul_precision("high")
+
+config = StrataConfig()
+data_loader = StrataDataLoader(8, 32)
+model = Strata(config)
+model.to(device)
+model = torch.compile(model)
+
+optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
+
+for i in range(50):
+    inputs, targets = data_loader.next_batch()
+    inputs, targets = inputs.to(device), targets.to(device)
+    optimizer.zero_grad()
+    with torch.autocast(device_type=device, dtype=torch.bfloat16):
+        logits, loss = model(inputs, targets)
+    loss.backward()
+    optimizer.step()
+    logger.info(f"Step {i + 1}, Loss: {loss.item()}")
+
+sys.exit(0)
 # Define the number of return sequences and the maximum length.
 num_return_sequences = 5
 max_length = 30
 
 # Create a Strata model.
-config = StrataConfig()
 
 model = Strata(config)
-model.eval()
 model.to(device)
-
 
 # Create a tokenizer and convert the input text to tokens.
 encoding = tiktoken.get_encoding("gpt2")

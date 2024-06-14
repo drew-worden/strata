@@ -6,7 +6,8 @@ from src.arch.block import StrataBlock
 from src.arch.config import StrataConfig
 from src.logger import setup_logger
 
-logger = setup_logger("Strata", type="class")
+logger = setup_logger("Strata", logger_type="class")
+
 
 class Strata(nn.Module):
     """Strata model definition."""
@@ -33,7 +34,20 @@ class Strata(nn.Module):
             config.num_embedding_dim, config.vocabulary_size, bias=False
         )
 
-    def forward(self: "Strata", idx: Tensor) -> nn.Linear:
+        self.transformer.token_embedding_weights.weight = self.lang_model_head.weight
+        self.apply(self.init_weights)
+
+    def init_weights(self: "Strata", module: nn.Module) -> None:
+        """Initialize the weights of the Strata model."""
+        std = 0.02 * (2 * self.config.num_layers) ** -0.5
+        if isinstance(module, nn.Linear):
+            nn.init.normal_(module.weight, mean=0, std=std)
+            if module.bias is not None:
+                nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            nn.init.normal_(module.weight, mean=0, std=std)
+
+    def forward(self: "Strata", idx: Tensor, targets: Tensor = None) -> (Tensor, Tensor):
         """Forward pass of the Strata model."""
         b, t = idx.size()
         if t > self.config.block_size:
@@ -50,4 +64,11 @@ class Strata(nn.Module):
             x = block(x)
 
         x = self.transformer.layer_norm_func(x)
-        return self.lang_model_head(x)
+
+        logits = self.lang_model_head(x)
+
+        if targets is not None:
+            loss = nn.functional.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
+            return logits, loss
+
+        return logits
