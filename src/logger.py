@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Literal
 
 
-def setup_logger(identifier: str, type=Literal["class"] | Literal["script"]) -> Logger:
+def setup_logger(identifier: str, logger_type: str = Literal["class", "script"]) -> Logger:
     """Define logger with the given name, file, and level."""
     if not Path("logs").exists():
         Path("logs").mkdir()
@@ -22,10 +22,10 @@ def setup_logger(identifier: str, type=Literal["class"] | Literal["script"]) -> 
     # Create handlers
     console_handler = logging.StreamHandler(sys.stdout)
 
-    if type == "class":
+    if logger_type == "class":
         file_path = f"logs/{identifier}.log"
-    elif type == "script":
-        file_name = identifier.split(".")[-2].split(os.sep)[-1]
+    elif logger_type == "script":
+        file_name = Path(identifier).parts[-1].split(".")[0]
         file_path = f"logs/{file_name}.log"
 
     file_handler = logging.FileHandler(file_path, encoding="utf-8")

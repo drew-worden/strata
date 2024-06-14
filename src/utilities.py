@@ -7,9 +7,10 @@ import torch
 
 from src.logger import setup_logger
 
-logger = setup_logger("StrataUtilities", type="class")
+logger = setup_logger("StrataUtilities", logger_type="class")
 
-class StrataUtilities():
+
+class StrataUtilities:
     """Utility functions for the Strata project."""
 
     def __init__(self: "StrataUtilities") -> None:

@@ -7,19 +7,19 @@ from src.arch.config import StrataConfig
 from src.arch.feed_forward_network import StrataFeedForwardNetwork
 from src.logger import setup_logger
 
-logger = setup_logger("StrataBlock", type="class")
-block_num = 1
+logger = setup_logger("StrataBlock", logger_type="class")
 
 
 class StrataBlock(nn.Module):
     """StrataBlock class is a block that is used in the Strata model."""
 
+    block_num = 1
+
     def __init__(self: "StrataBlock", config: StrataConfig) -> None:
         """Initialize the StrataBlock class."""
         super().__init__()
-        global block_num
-        logger.info(f"Initializing StrataBlock {block_num}")
-        block_num += 1
+        logger.info(f"Initializing StrataBlock {StrataBlock.block_num}")
+        StrataBlock.block_num += 1
         self.layer_norm_1 = nn.LayerNorm(config.num_embedding_dim)
         self.attention = StrataCausalAttention(config)
         self.layer_norm_2 = nn.LayerNorm(config.num_embedding_dim)
