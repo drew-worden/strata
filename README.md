@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-      <img src="/meta/logo.svg" height="156">
+      <img src="/assets/logo.svg" height="156">
 </p>
 <br/>
 A custom-built large language model, built to outperform GPT-3 level models while being significantly smaller and easier to train.
