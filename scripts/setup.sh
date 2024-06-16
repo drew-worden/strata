@@ -14,11 +14,11 @@ open_nvidia_smi() {
     watch -n 0.1 nvidia-smi
 }
 
-# Update and upgrade the system
+# Update the system
 update_system() {
-    echo "Updating and upgrading the system..."
-    sudo apt-get update && sudo apt-get upgrade -y
-    echo "System updated and upgraded successfully."
+    echo "Updating the system..."
+    sudo apt-get update
+    echo "System updated successfully."
 }
 
 # Install common dependencies
@@ -31,7 +31,7 @@ install_dependencies() {
 # Install project packages
 install_poetry_packages() {
     echo "Installing project packages..."
-    poetry add package1 package2 package3
+    poetry install
     echo "Project packages installed successfully."
 }
 
