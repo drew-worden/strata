@@ -17,10 +17,10 @@ format = "ruff format ./"
 [tool.poetry.dependencies]
 python = "^3.10"
 tiktoken = "^0.7.0"
+numpy = "^1.26.4"
+torch = "^2.3.1"
 
 # Project development dependencies
-numpy = "^1.26.4"
-torch = "2.2.2"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.8"
 pytest = "^8.2.2"

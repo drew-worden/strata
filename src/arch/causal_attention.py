@@ -1,7 +1,5 @@
 """File contains the implementation of the StrataCasualAttention class."""
 
-import math
-
 from torch import Tensor, nn, ones, tril
 
 from src.arch.config import StrataConfig
@@ -48,12 +46,9 @@ class StrataCausalAttention(nn.Module):
         query = query.view(b, t, self.num_heads, c // self.num_heads).transpose(1, 2)
         value = value.view(b, t, self.num_heads, c // self.num_heads).transpose(1, 2)
 
-        # Compute the attention scores.
-        attention = (query @ key.transpose(-2, -1)) * (1.0 / math.sqrt(key.size(-1)))
-        attention = attention.masked_fill(self.bias[:, :, :t, :t] == 0, float("-inf"))
-        attention = nn.functional.softmax(attention, dim=-1)
+        # Flash attention
+        y = nn.functional.scale_dot_product_attention(query, key, value, is_causal=True)
 
         # Apply the attention scores to the value.
-        y = attention @ value
         y = y.transpose(1, 2).contiguous().view(b, t, c)
         return self.causal_projection(y)

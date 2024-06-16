@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17593cc6-7ea9-4ec3-832b-ec8efb3977ac" name="Changes" comment="" />
+    <list default="true" id="17593cc6-7ea9-4ec3-832b-ec8efb3977ac" name="Changes" comment="Fixed .idea conflicts.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/arch/causal_attention.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/arch/causal_attention.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,5 +68,9 @@
       <updated>1717984293746</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed .idea conflicts." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed .idea conflicts." />
   </component>
 </project>
