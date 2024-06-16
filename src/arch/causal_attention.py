@@ -2,13 +2,13 @@
 
 from torch import Tensor, nn, ones, tril
 
-from src.arch.config import StrataConfig
+from src.arch.config import StrataModelConfig
 
 
 class StrataCausalAttention(nn.Module):
     """StrataCausalAttention class is a causal attention mechanism used in the Strata model."""
 
-    def __init__(self: "StrataCausalAttention", config: StrataConfig) -> None:
+    def __init__(self: "StrataCausalAttention", config: StrataModelConfig) -> None:
         """Initialize the StrataCausalAttention class."""
         super().__init__()
 
@@ -47,7 +47,7 @@ class StrataCausalAttention(nn.Module):
         value = value.view(b, t, self.num_heads, c // self.num_heads).transpose(1, 2)
 
         # Flash attention
-        y = nn.functional.scale_dot_product_attention(query, key, value, is_causal=True)
+        y = nn.functional.scaled_dot_product_attention(query, key, value, is_causal=True)
 
         # Apply the attention scores to the value.
         y = y.transpose(1, 2).contiguous().view(b, t, c)

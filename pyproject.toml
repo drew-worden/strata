@@ -1,7 +1,7 @@
 # Project metadata
 [tool.poetry]
 name = "strata"
-description = "A \"small\" large language model for general purposes."
+description = "A custom-built large language model, built to outperform GPT-3 level models while being significantly smaller and easier to train."
 authors = ["drew-worden <drew.p.worden@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -17,8 +17,8 @@ format = "ruff format ./"
 [tool.poetry.dependencies]
 python = "^3.10"
 tiktoken = "^0.7.0"
-numpy = "^1.26.4"
 torch = "^2.3.1"
+numpy = "^1.26.4"
 
 # Project development dependencies
 [tool.poetry.group.dev.dependencies]

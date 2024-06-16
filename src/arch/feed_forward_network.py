@@ -2,13 +2,13 @@
 
 from torch import Tensor, nn
 
-from src.arch.config import StrataConfig
+from src.arch.config import StrataModelConfig
 
 
 class StrataFeedForwardNetwork(nn.Module):
     """StrataFeedForwardNetwork class is a feed forward network that is used in the Strata model."""
 
-    def __init__(self: "StrataFeedForwardNetwork", config: StrataConfig) -> None:
+    def __init__(self: "StrataFeedForwardNetwork", config: StrataModelConfig) -> None:
         """Initialize the StrataFeedForwardNetwork class."""
         super().__init__()
 

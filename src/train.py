@@ -5,7 +5,7 @@ import sys
 import tiktoken
 import torch
 
-from src.arch.config import StrataConfig
+from src.arch.config import StrataModelConfig
 from src.arch.strata import Strata
 from src.data_loader import StrataDataLoader
 from src.logger import get_relative_path, setup_logger
@@ -22,7 +22,7 @@ device = utils.get_best_device()
 
 torch.set_float32_matmul_precision("high")
 
-config = StrataConfig()
+config = StrataModelConfig()
 data_loader = StrataDataLoader(8, 32)
 model = Strata(config)
 model.to(device)
@@ -41,12 +41,12 @@ for i in range(50):
     logger.info(f"Step {i + 1}, Loss: {loss.item()}")
 
 sys.exit(0)
+
 # Define the number of return sequences and the maximum length.
 num_return_sequences = 5
 max_length = 30
 
 # Create a Strata model.
-
 model = Strata(config)
 model.to(device)
 

@@ -3,7 +3,7 @@
 from torch import Tensor, nn
 
 from src.arch.causal_attention import StrataCausalAttention
-from src.arch.config import StrataConfig
+from src.arch.config import StrataModelConfig
 from src.arch.feed_forward_network import StrataFeedForwardNetwork
 from src.logger import setup_logger
 
@@ -15,7 +15,7 @@ class StrataBlock(nn.Module):
 
     block_num = 1
 
-    def __init__(self: "StrataBlock", config: StrataConfig) -> None:
+    def __init__(self: "StrataBlock", config: StrataModelConfig) -> None:
         """Initialize the StrataBlock class."""
         super().__init__()
         logger.info(f"Initializing StrataBlock {StrataBlock.block_num}")

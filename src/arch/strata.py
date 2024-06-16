@@ -3,7 +3,7 @@
 from torch import Tensor, arange, long, nn
 
 from src.arch.block import StrataBlock
-from src.arch.config import StrataConfig
+from src.arch.config import StrataModelConfig
 from src.logger import setup_logger
 
 logger = setup_logger("Strata", logger_type="class")
@@ -12,7 +12,7 @@ logger = setup_logger("Strata", logger_type="class")
 class Strata(nn.Module):
     """Strata model definition."""
 
-    def __init__(self: "Strata", config: StrataConfig) -> None:
+    def __init__(self: "Strata", config: StrataModelConfig) -> None:
         """Initialize the Strata model."""
         super().__init__()
         self.config = config
